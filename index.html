@@ -5,257 +5,196 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BasePró - High Performance</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3182ce">
     <style>
-        :root {
-            --primary: #3182ce; 
-            --dark: #0a0a0a;
-            --card-bg: #1e1e1e;
-            --light: #ffffff;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
+        :root { --primary: #3182ce; --dark: #0a0a0a; --card-bg: #1e1e1e; --light: #ffffff; }
+        body { font-family: 'Arial', sans-serif; background-color: var(--dark); color: var(--light); margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         .app-container { width: 95%; max-width: 400px; padding: 20px 0; }
-
-        header { text-align: center; width: 100%; margin-bottom: 25px; padding: 10px 0; }
+        header { text-align: center; width: 100%; margin-bottom: 20px; }
         header h2 { font-style: italic; font-weight: 900; font-size: 1.4rem; margin: 0; text-transform: uppercase; }
-
-        .card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
-            box-sizing: border-box;
-            width: 100%;
-        }
-
-        .video-box {
-            width: 100%;
-            height: 190px;
-            background: #000;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--primary);
-        }
-
-        input, select {
-            width: 100%;
-            padding: 18px;
-            margin: 10px 0;
-            border-radius: 12px;
-            border: none;
-            font-size: 1rem;
-            background: #ffffff;
-            color: #333;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .btn-blue {
-            width: 100%;
-            padding: 18px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 900;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0 5px 0px #225a8e;
-            transition: 0.1s;
-            margin-top: 10px;
-        }
-
-        .btn-blue:active { transform: translateY(3px); box-shadow: 0 2px 0px #225a8e; }
-
-        .grid-medidas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .grid-medidas div { text-align: left; }
-        .grid-medidas label { font-size: 0.7rem; color: var(--primary); font-weight: bold; text-transform: uppercase; }
-
+        .card { background: var(--card-bg); padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; width: 100%; }
+        .btn-treino, .btn-obj { background: rgba(255,255,255,0.05); padding: 18px; border-radius: 12px; border: 1px solid #333; cursor: pointer; text-align: left; margin-bottom: 10px; display: block; width: 100%; color: white; transition: 0.2s; }
+        .btn-obj { text-align: center; font-weight: bold; border-color: var(--primary); }
+        .btn-obj:active, .btn-treino:active { background: var(--primary); transform: scale(0.98); }
+        .video-box { width: 100%; height: 180px; background: #000; border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--primary); color: #444; }
+        input, select { width: 100%; padding: 16px; margin: 8px 0; border-radius: 12px; border: none; font-size: 1rem; background: #ffffff; color: #333; box-sizing: border-box; outline: none; }
+        .btn-blue { width: 100%; padding: 18px; background-color: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 5px 0px #225a8e; margin-top: 10px; }
+        .grid-medidas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; }
+        .grid-medidas label { font-size: 0.65rem; color: var(--primary); font-weight: bold; text-transform: uppercase; display: block; text-align: left; }
+        .timer { font-size: 3rem; font-weight: 800; margin: 10px 0; font-family: monospace; }
+        .badge { background: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: bold; margin-bottom: 8px; display: inline-block; }
         .hidden { display: none !important; }
-
-        .timer { font-size: 3.5rem; font-weight: 800; margin: 15px 0; font-family: monospace; }
-        .badge { background: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h2>BASEPRÓ <span style="color:var(--primary)">PERFORMANCE</span></h2>
-    </header>
+    <header><h2>BASEPRÓ <span style="color:var(--primary)">PERFORMANCE</span></h2></header>
 
     <div class="app-container">
-        
         <div id="step-1" class="card">
             <div class="video-box"><span>VÍDEO BOAS-VINDAS</span></div>
-            <input type="text" id="atletaNome" placeholder="Digite seu nome completo">
+            <input type="text" id="atletaNome" placeholder="Nome Completo">
             <button class="btn-blue" onclick="irParaMetricas()">A EVOLUÇÃO COMEÇA AGORA</button>
         </div>
 
         <div id="step-metrics" class="card hidden">
-            <h3 style="margin:0 0 15px 0;">SUA BIOMETRIA</h3>
+            <h3 style="margin:0 0 10px 0;">BIOMETRIA</h3>
             <div class="grid-medidas">
-                <div><label>Peso (kg)</label><input type="number" id="peso" placeholder="00"></div>
-                <div><label>Altura (m)</label><input type="number" id="altura" placeholder="1.75"></div>
-                <div><label>Peito</label><input type="number" id="peito" placeholder="cm"></div>
-                <div><label>Cintura</label><input type="number" id="cintura" placeholder="cm"></div>
-                <div><label>Quadril</label><input type="number" id="quadril" placeholder="cm"></div>
-                <div><label>Braço D.</label><input type="number" id="braco_d" placeholder="cm"></div>
-                <div><label>Braço E.</label><input type="number" id="braco_e" placeholder="cm"></div>
-                <div><label>Perna D.</label><input type="number" id="perna_d" placeholder="cm"></div>
-                <div><label>Perna E.</label><input type="number" id="perna_e" placeholder="cm"></div>
+                <div><label>Peso (kg)</label><input type="number" id="peso"></div>
+                <div><label>Altura (m)</label><input type="number" id="altura"></div>
+                <div><label>Peito</label><input type="number" id="peito"></div>
+                <div><label>Cintura</label><input type="number" id="cintura"></div>
+                <div><label>Quadril</label><input type="number" id="quadril"></div>
+                <div><label>Braço D.</label><input type="number" id="braco_d"></div>
+                <div><label>Braço E.</label><input type="number" id="braco_e"></div>
+                <div><label>Perna D.</label><input type="number" id="perna_d"></div>
+                <div><label>Perna E.</label><input type="number" id="perna_e"></div>
             </div>
-            <button class="btn-blue" onclick="salvarMetricas()">SALVAR E ENVIAR</button>
+            <button class="btn-blue" onclick="salvarMetricas()">DEFINIR OBJETIVO</button>
+        </div>
+
+        <div id="step-objective" class="card hidden">
+            <h3 style="margin:0 0 15px 0;">QUAL SEU FOCO?</h3>
+            <button class="btn-obj" onclick="definirObjetivo('Performance')">PERFORMANCE</button>
+            <button class="btn-obj" onclick="definirObjetivo('Hipertrofia')">HIPERTROFIA</button>
+            <button class="btn-obj" onclick="definirObjetivo('Emagrecimento')">EMAGRECIMENTO</button>
+            <button class="btn-obj" onclick="definirObjetivo('Reabilitação')">REABILITAÇÃO</button>
         </div>
 
         <div id="step-filter" class="card hidden">
-            <h3 id="boas-vindas-txt">FOCO TOTAL!</h3>
-            <select id="select-nivel">
+            <div style="margin-bottom:15px;">
+                <span id="badge-obj" class="badge">OBJETIVO</span>
+                <h3 id="txt-periodo" style="color:var(--primary); margin:0;">CICLO 1 - MÊS 1</h3>
+            </div>
+            <button class="btn-treino" onclick="iniciarTreino('A')"><strong>TREINO A</strong><br><small>Sessão de Mobilidade, Core, Potência e Força</small></button>
+            <button class="btn-treino" onclick="iniciarTreino('B')"><strong>TREINO B</strong><br><small>Sessão de Mobilidade, Core, Potência e Força</small></button>
+            <button class="btn-treino" onclick="iniciarTreino('C')"><strong>TREINO C</strong><br><small>Sessão de Mobilidade, Core, Potência e Força</small></button>
+
+            <select id="select-nivel" style="margin-top:10px;">
                 <option value="iniciante">INICIANTE</option>
                 <option value="intermediario">INTERMEDIÁRIO</option>
                 <option value="pro">PRO (BLACK & GOLD)</option>
             </select>
-            <button class="btn-blue" onclick="iniciarTreino()">GERAR MEU TREINO</button>
-            <p onclick="resetarTudo()" style="font-size:0.7rem; margin-top:20px; opacity:0.5; text-decoration:underline; cursor:pointer;">Atualizar Cadastro</p>
+            <p onclick="resetarTudo()" style="font-size:0.6rem; margin-top:15px; opacity:0.3; cursor:pointer;">Reiniciar Perfil</p>
         </div>
 
         <div id="step-workout" class="card hidden">
-            <div id="badge-nivel" class="badge">NÍVEL</div>
-            <h2 id="ex-nome" style="margin: 10px 0;">EXERCÍCIO</h2>
+            <div style="display:flex; justify-content: space-between; align-items:center;">
+                <div id="badge-info" class="badge">NÍVEL - A</div>
+                <div id="progresso-ex" style="font-size:0.7rem; color:var(--primary); font-weight:bold;">1/10</div>
+            </div>
+            <h2 id="ex-nome" style="margin: 5px 0; font-size: 1.2rem; min-height: 45px;">EXERCÍCIO</h2>
             <div class="video-box"><span>VÍDEO EXECUÇÃO</span></div>
-            
             <div style="display:flex; justify-content: space-around; background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
-                <div><small style="color:var(--primary)">PRESCRIÇÃO</small><br><strong id="ex-pres">3x 12</strong></div>
+                <div><small style="color:var(--primary)">META</small><br><strong id="ex-pres">3x 12</strong></div>
                 <div><small style="color:var(--primary)">CARGA</small><br><input type="text" id="ex-carga" value="X" style="width:60px; background:transparent; color:white; border:none; border-bottom:1px solid var(--primary); text-align:center;"></div>
             </div>
-
             <div class="timer" id="timer-display">00:00</div>
-            <button class="btn-blue" id="btn-timer" onclick="toggleTimer()">INICIAR SÉRIE</button>
-            <button class="btn-blue" style="background:#fff; color:#000; box-shadow:0 5px 0px #ccc;" onclick="proximoEx()">CONCLUIR</button>
-            <p onclick="voltarFiltro()" style="font-size:0.7rem; margin-top:15px; cursor:pointer; text-decoration:underline;">Mudar Intensidade</p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <button class="btn-blue" id="btn-timer" onclick="toggleTimer()" style="margin-top:0;">SÉRIE</button>
+                <button class="btn-blue" onclick="proximoEx()" style="background:#fff; color:#000; margin-top:0;">PRÓXIMO</button>
+            </div>
         </div>
     </div>
 
 <script>
-    // --- LÓGICA DO APP ---
-    const WHATS_COACH = "55XXXXXXXXXXX"; 
-    let atleta = JSON.parse(localStorage.getItem('basepro_data')) || {};
-    let treinoLista = [];
-    let idxAtivo = 0;
-    let tempoSeg = 0;
-    let relogioObj;
-    let rodando = false;
+    const SEU_NUMERO = "55XXXXXXXXXXX"; 
+    let atleta = JSON.parse(localStorage.getItem('basepro_v6')) || {};
+    let treinoAtual = [], idx = 0, seg = 0, timer, rodando = false;
 
-    const DATABASE = {
-        iniciante: [{nome:"Mobilidade Tornozelo", pres:"2x 10 reps"}, {nome:"Agachamento Livre", pres:"3x 15 reps"}],
-        intermediario: [{nome:"Spiderman Lunge", pres:"3x 10 reps"}, {nome:"Afundo", pres:"3x 12 reps"}],
-        pro: [{nome:"Cossack Squat", pres:"3x 10 reps"}, {nome:"Pistol Squat", pres:"4x 6 reps"}]
-    };
+    // GERADOR DE ESTRUTURA 3-1-3-3
+    const criarTreino10 = (prefix) => [
+        {nome: prefix+" Mob 1", pres: "3x15s", cat: "MOBILIDADE"}, {nome: prefix+" Mob 2", pres: "3x15s", cat: "MOBILIDADE"}, {nome: prefix+" Mob 3", pres: "3x15s", cat: "MOBILIDADE"},
+        {nome: prefix+" Core", pres: "3x45s", cat: "CORE"},
+        {nome: prefix+" Pot 1", pres: "4x5", cat: "POTÊNCIA"}, {nome: prefix+" Pot 2", pres: "4x5", cat: "POTÊNCIA"}, {nome: prefix+" Pot 3", pres: "4x5", cat: "POTÊNCIA"},
+        {nome: prefix+" For 1", pres: "3x12", cat: "FORÇA"}, {nome: prefix+" For 2", pres: "3x12", cat: "FORÇA"}, {nome: prefix+" For 3", pres: "3x12", cat: "FORÇA"}
+    ];
 
-    window.onload = () => {
-        if (atleta.nome && atleta.peso) {
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-filter').classList.remove('hidden');
-            document.getElementById('boas-vindas-txt').innerText = "FOCO TOTAL, " + atleta.nome.split(' ')[0] + "!";
-        }
-    };
+    // BANCO DE DADOS EXPANSÍVEL (Mês 1 Exemplo)
+    const OBJETIVOS = ["Performance", "Hipertrofia", "Emagrecimento", "Reabilitação"];
+    const TREINOS_MASTER = { mes1: {} };
+
+    OBJETIVOS.forEach(obj => {
+        TREINOS_MASTER.mes1[obj] = {
+            iniciante: { A: criarTreino10(obj+" Inic A"), B: criarTreino10(obj+" Inic B"), C: criarTreino10(obj+" Inic C") },
+            intermediario: { A: criarTreino10(obj+" Inter A"), B: criarTreino10(obj+" Inter B"), C: criarTreino10(obj+" Inter C") },
+            pro: { A: criarTreino10(obj+" Pro A"), B: criarTreino10(obj+" Pro B"), C: criarTreino10(obj+" Pro C") }
+        };
+    });
+
+    window.onload = () => { if (atleta.objetivo) { mostrarTela('step-filter'); atualizarUI(); } };
 
     function irParaMetricas() {
-        const n = document.getElementById('atletaNome').value;
-        if(!n) return alert("Digite seu nome!");
-        atleta.nome = n;
-        document.getElementById('step-1').classList.add('hidden');
-        document.getElementById('step-metrics').classList.remove('hidden');
+        atleta.nome = document.getElementById('atletaNome').value;
+        if(!atleta.nome) return alert("Nome obrigatório!");
+        atleta.dataInicio = new Date().getTime();
+        mostrarTela('step-metrics');
     }
 
     function salvarMetricas() {
         const ids = ['peso', 'altura', 'peito', 'cintura', 'quadril', 'braco_d', 'braco_e', 'perna_d', 'perna_e'];
-        let check = true;
-        ids.forEach(id => {
-            atleta[id] = document.getElementById(id).value;
-            if(!atleta[id]) check = false;
-        });
-        if(!check) return alert("Preencha todas as medidas!");
-        localStorage.setItem('basepro_data', JSON.stringify(atleta));
+        ids.forEach(id => atleta[id] = document.getElementById(id).value);
+        mostrarTela('step-objective');
+    }
+
+    function definirObjetivo(obj) {
+        atleta.objetivo = obj;
+        localStorage.setItem('basepro_v6', JSON.stringify(atleta));
         enviarWhats();
-        document.getElementById('step-metrics').classList.add('hidden');
-        document.getElementById('step-filter').classList.remove('hidden');
+        mostrarTela('step-filter');
+        atualizarUI();
     }
 
     function enviarWhats() {
         const imc = (atleta.peso / (atleta.altura * atleta.altura)).toFixed(2);
-        const msg = `*ALUNO BASEPRÓ*%0A*Atleta:* ${atleta.nome}%0A*IMC:* ${imc}%0A*Peso:* ${atleta.peso}kg`;
-        window.open(`https://api.whatsapp.com/send?phone=${WHATS_COACH}&text=${msg}`, '_blank');
+        let msg = `*NOVO ATLETA BASEPRÓ*%0A*Nome:* ${atleta.nome}%0A*Foco:* ${atleta.objetivo}%0A*IMC:* ${imc}%0A*Medidas:* P:${atleta.peso} | A:${atleta.altura} | Peito:${atleta.peito} | Cintura:${atleta.cintura} | Quadril:${atleta.quadril} | B:${atleta.braco_d}-${atleta.braco_e} | P:${atleta.perna_d}-${atleta.perna_e}`;
+        window.open(`https://api.whatsapp.com/send?phone=${SEU_NUMERO}&text=${msg}`, '_blank');
     }
 
-    function iniciarTreino() {
+    function atualizarUI() {
+        const semanas = Math.floor((new Date().getTime() - atleta.dataInicio) / (1000 * 60 * 60 * 24 * 7));
+        atleta.mesLogico = Math.floor(semanas / 4) + 1;
+        document.getElementById('txt-periodo').innerText = `CICLO 1 - MÊS ${atleta.mesLogico}`;
+        document.getElementById('badge-obj').innerText = atleta.objetivo.toUpperCase();
+    }
+
+    function iniciarTreino(tipo) {
         const niv = document.getElementById('select-nivel').value;
-        treinoLista = DATABASE[niv];
-        idxAtivo = 0;
-        document.getElementById('badge-nivel').innerText = niv.toUpperCase();
-        document.getElementById('step-filter').classList.add('hidden');
-        document.getElementById('step-workout').classList.remove('hidden');
-        if(niv === 'iniciante') document.body.style.backgroundColor = "#004e89";
-        else if(niv === 'intermediario') document.body.style.backgroundColor = "#c05800";
-        else document.body.style.backgroundColor = "#000";
-        mostrarEx();
+        const mesChave = `mes${atleta.mesLogico || 1}`;
+        const dbMes = TREINOS_MASTER[mesChave] || TREINOS_MASTER.mes1;
+        treinoAtual = dbMes[atleta.objetivo][niv][tipo];
+        idx = 0;
+        document.getElementById('badge-info').innerText = `${niv.toUpperCase()} - ${tipo}`;
+        mostrarTela('step-workout');
+        renderEx();
     }
 
-    function mostrarEx() {
-        if(idxAtivo < treinoLista.length) {
-            document.getElementById('ex-nome').innerText = treinoLista[idxAtivo].nome;
-            document.getElementById('ex-pres').innerText = treinoLista[idxAtivo].pres;
+    function renderEx() {
+        if(idx < treinoAtual.length) {
+            const ex = treinoAtual[idx];
+            document.getElementById('ex-nome').innerText = `[${ex.cat}] ${ex.nome}`;
+            document.getElementById('ex-pres').innerText = ex.pres;
+            document.getElementById('progresso-ex').innerText = `${idx + 1} / 10`;
             document.getElementById('ex-carga').value = "X";
-            resetRelogio();
-        } else {
-            alert("TREINO CONCLUÍDO!");
-            voltarFiltro();
-        }
+            resetTimer();
+        } else { alert("TREINO CONCLUÍDO!"); mostrarTela('step-filter'); }
     }
 
-    function proximoEx() { idxAtivo++; mostrarEx(); }
-
+    function proximoEx() { idx++; renderEx(); }
     function toggleTimer() {
         const b = document.getElementById('btn-timer');
         if(!rodando) {
-            rodando = true; b.innerText = "PAUSAR";
-            relogioObj = setInterval(() => {
-                tempoSeg++;
-                let m = Math.floor(tempoSeg/60).toString().padStart(2,'0');
-                let s = (tempoSeg%60).toString().padStart(2,'0');
-                document.getElementById('timer-display').innerText = m + ":" + s;
+            rodando = true; b.innerText = "PAUSA";
+            timer = setInterval(() => {
+                seg++;
+                let m = Math.floor(seg/60).toString().padStart(2,'0'), s = (seg%60).toString().padStart(2,'0');
+                document.getElementById('timer-display').innerText = m+":"+s;
             }, 1000);
-        } else {
-            rodando = false; b.innerText = "RETOMAR";
-            clearInterval(relogioObj);
-        }
+        } else { rodando = false; b.innerText = "SÉRIE"; clearInterval(timer); }
     }
-
-    function resetRelogio() { clearInterval(relogioObj); tempoSeg = 0; rodando = false; document.getElementById('timer-display').innerText = "00:00"; document.getElementById('btn-timer').innerText = "INICIAR SÉRIE"; }
-
-    function voltarFiltro() { document.getElementById('step-workout').classList.add('hidden'); document.getElementById('step-filter').classList.remove('hidden'); document.body.style.backgroundColor = "#0a0a0a"; }
-
-    function resetarTudo() { localStorage.removeItem('basepro_data'); location.reload(); }
-
-    // --- REGISTRO PWA ---
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-    }
+    function resetTimer() { clearInterval(timer); seg = 0; rodando = false; document.getElementById('timer-display').innerText = "00:00"; document.getElementById('btn-timer').innerText = "SÉRIE"; }
+    function mostrarTela(id) { document.querySelectorAll('.app-container > div').forEach(c => c.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
+    function resetarTudo() { localStorage.removeItem('basepro_v6'); location.reload(); }
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 </script>
 </body>
 </html>
