@@ -7,7 +7,7 @@
   "theme_color": "#3182ce",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/8421/8421258.png",
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/512x512/1f4aa-1f3fb.png",
       "sizes": "512x512",
       "type": "image/png"
     }
