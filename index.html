@@ -72,7 +72,7 @@
             <select id="select-nivel" style="margin-top:10px;">
                 <option value="iniciante">INICIANTE</option>
                 <option value="intermediario">INTERMEDIÁRIO</option>
-                <option value="pro">PRO (BLACK & GOLD)</option>
+                <option value="pro">PRO</option>
             </select>
             <p onclick="resetarTudo()" style="font-size:0.6rem; margin-top:15px; opacity:0.3; cursor:pointer;">Reiniciar Perfil</p>
         </div>
@@ -97,7 +97,7 @@
     </div>
 
 <script>
-    const SEU_NUMERO = "55XXXXXXXXXXX"; 
+    const SEU_NUMERO = "+5549999804840"; 
     let atleta = JSON.parse(localStorage.getItem('basepro_v6')) || {};
     let treinoAtual = [], idx = 0, seg = 0, timer, rodando = false;
 
@@ -147,7 +147,7 @@
     function enviarWhats() {
         const imc = (atleta.peso / (atleta.altura * atleta.altura)).toFixed(2);
         let msg = `*NOVO ATLETA BASEPRÓ*%0A*Nome:* ${atleta.nome}%0A*Foco:* ${atleta.objetivo}%0A*IMC:* ${imc}%0A*Medidas:* P:${atleta.peso} | A:${atleta.altura} | Peito:${atleta.peito} | Cintura:${atleta.cintura} | Quadril:${atleta.quadril} | B:${atleta.braco_d}-${atleta.braco_e} | P:${atleta.perna_d}-${atleta.perna_e}`;
-        window.open(`https://api.whatsapp.com/send?phone=${SEU_NUMERO}&text=${msg}`, '_blank');
+        window.open(`https://api.whatsapp.com/send?phone=${+55999804840}&text=${msg}`, '_blank');
     }
 
     function atualizarUI() {
